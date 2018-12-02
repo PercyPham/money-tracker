@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+import next from "next";
 import express from "express";
 import mongoose from "mongoose";
 
@@ -7,17 +8,28 @@ import setupSession from "./setupSession";
 
 dotenv.config();
 
-const app = express();
 const port = process.env.PORT || 3000;
+const ROOT_URL = `http://localhost:${port}`;
 
-setupMongoose(mongoose);
-setupSession({ server: app, mongoose });
+const dev = process.env.NODE_ENV !== "production";
+const app = next({ dev });
+const handle = app.getRequestHandler();
 
-app.get("/", (req, res) => {
-  req.session.temp = "new session";
-  res.send("Hello there!!!");
-});
+app.prepare().then(() => {
+  const server = express();
 
-app.listen(port, () => {
-  console.log(`Server started on port ${port}`);
+  setupMongoose(mongoose);
+  setupSession({ server, mongoose });
+
+  server.get("/test-session", (req, res) => {
+    req.session.temp = "new session";
+    res.send("Test Session!!!");
+  });
+
+  server.get("*", (req, res) => handle(req, res));
+
+  server.listen(port, err => {
+    if (err) throw err;
+    console.log(`> Ready on ${ROOT_URL}`);
+  });
 });

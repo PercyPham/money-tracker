@@ -13,5 +13,5 @@ Now, we can run the app:
 
 ```
 npm install
-npm start
+npm run dev
 ```
