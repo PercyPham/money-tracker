@@ -1,6 +1,6 @@
 import React from "react";
 import Document, { Head, Main, NextScript } from "next/document";
-import { BASE_URL } from "../utils/Urls";
+import { BASE_URL } from "utils/Urls";
 
 class MyDocument extends Document {
   render() {
