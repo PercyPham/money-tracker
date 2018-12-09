@@ -3,11 +3,10 @@ import next from "next";
 import path from "path";
 import express from "express";
 import mongoose from "mongoose";
-
 import setupMongoose from "./setups/setupMongoose";
 import setupSession from "./setups/setupSession";
-
 import { PORT, BASE_URL } from "../utils/Urls";
+import routerHandlingApiRequest from "./api";
 
 dotenv.config();
 
@@ -23,12 +22,7 @@ app.prepare().then(() => {
   setupSession({ server, mongoose });
 
   server.use("/static", express.static(path.join(__dirname, "../public")));
-
-  server.get("/test-session", (req, res) => {
-    req.session.temp = "new session";
-    res.send("Test Session!!!");
-  });
-
+  server.use("/api", routerHandlingApiRequest);
   server.get("*", (req, res) => handle(req, res));
 
   server.listen(PORT, err => {
