@@ -25,6 +25,7 @@ module.exports = {
         enforceForRenamedProperties: false
       }
     ],
+    "linebreak-style": false,
     "import/prefer-default-export": "off",
     "jsx-a11y/anchor-is-valid": "off",
     "react/react-in-jsx-scope": "off",
