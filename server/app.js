@@ -1,12 +1,12 @@
-import dotenv from "dotenv";
-import next from "next";
-import path from "path";
 import express from "express";
 import mongoose from "mongoose";
+import next from "next";
+import dotenv from "dotenv";
+import path from "path";
 import setupMongoose from "./setups/setupMongoose";
 import setupSession from "./setups/setupSession";
-import { PORT, BASE_URL } from "../utils/Urls";
 import routerHandlingApiRequest from "./api";
+import { PORT, BASE_URL } from "../utils/Urls";
 
 dotenv.config();
 
