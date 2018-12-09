@@ -8,7 +8,6 @@ Before starting the app, we must define some values for the `.env` file. It has 
 MONGODB_DEV_URL="xxxxxxxxxx"
 MONGODB_PROD_URL="xxxxxxxxxx"
 
-DEV_BASE_URL="xxxxxxxxxx"
 PROD_BASE_URL="xxxxxxxxxx"
 ```
 

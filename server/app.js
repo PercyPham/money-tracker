@@ -4,16 +4,16 @@ import path from "path";
 import express from "express";
 import mongoose from "mongoose";
 
-import setupMongoose from "./setupMongoose";
-import setupSession from "./setupSession";
+import setupMongoose from "./setups/setupMongoose";
+import setupSession from "./setups/setupSession";
+
+import { PORT, BASE_URL } from "../utils/Urls";
 
 dotenv.config();
 
-const port = process.env.PORT || 3000;
-const ROOT_URL = `http://localhost:${port}`;
+const isDevMode = process.env.NODE_ENV !== "production";
 
-const dev = process.env.NODE_ENV !== "production";
-const app = next({ dev });
+const app = next({ dev: isDevMode });
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
@@ -31,8 +31,8 @@ app.prepare().then(() => {
 
   server.get("*", (req, res) => handle(req, res));
 
-  server.listen(port, err => {
+  server.listen(PORT, err => {
     if (err) throw err;
-    console.log(`> Ready on ${ROOT_URL}`);
+    console.log(`> Ready on ${BASE_URL}`);
   });
 });
