@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import next from "next";
+import path from "path";
 import express from "express";
 import mongoose from "mongoose";
 
@@ -20,6 +21,8 @@ app.prepare().then(() => {
 
   setupMongoose(mongoose);
   setupSession({ server, mongoose });
+
+  server.use("/static", express.static(path.join(__dirname, "../public")));
 
   server.get("/test-session", (req, res) => {
     req.session.temp = "new session";
